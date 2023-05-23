@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
 
     // TODO: create forks, table, and philosophers. The number of forks and philosophers are defined in the config.hpp
 
-    Table *table = new Table();
+    Table *table = new Table(PHILOSOPHERS);
     vector<Fork *> fork_array;
     vector<Philosopher *> phr_array;
 

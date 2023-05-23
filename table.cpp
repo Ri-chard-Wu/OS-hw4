@@ -1,12 +1,16 @@
 #include "table.hpp"
 #include "stdio.h"
-#include "config.hpp"
+#include <cassert>
 
 Table::Table(int n) {
     // TODO: implement table constructor (value, mutex, cond)
-    mutex = PTHREAD_MUTEX_INITIALIZER;
-    cond = PTHREAD_COND_INITIALIZER; 
-    value = PHILOSOPHERS - 1;    
+    
+    // mutex = PTHREAD_MUTEX_INITIALIZER;
+    // cond = PTHREAD_COND_INITIALIZER; 
+
+    pthread_mutex_init(&mutex, NULL);
+    pthread_cond_init(&cond, NULL);
+    value = n - 1;    
 }
 
 void Table::wait() {

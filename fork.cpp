@@ -6,8 +6,12 @@ Fork::Fork() {
     // int ret = pthread_mutex_init(&mutex, NULL);
     // if(ret != 0) printf("\n mutex init has failed\n");
 
-    mutex = PTHREAD_MUTEX_INITIALIZER;
-    cond = PTHREAD_COND_INITIALIZER; 
+    // mutex = PTHREAD_MUTEX_INITIALIZER;
+    // cond = PTHREAD_COND_INITIALIZER; 
+
+    pthread_mutex_init(&mutex, NULL);
+    pthread_cond_init(&cond, NULL);
+
     value = 1;
     
 }

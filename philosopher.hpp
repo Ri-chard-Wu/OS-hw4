@@ -19,9 +19,9 @@ public:
     int cancel();
     void think();
     void enter();
-    void pickup(int id);
+    void pickup();
     void eat();
-    void putdown(int id);
+    void putdown();
     void leave();
 
 private:

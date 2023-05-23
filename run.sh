@@ -1,9 +1,15 @@
 
-# Target=test_cancel
-Target=test_cv
+# # Target=test_cancel
+# Target=test_cv
 
-rm ${Target}
+# rm ${Target}
 
-g++ -o ${Target} ${Target}.cpp -lpthread
+# g++ -o ${Target} ${Target}.cpp -lpthread
 
-./${Target}
+# ./${Target}
+
+
+
+make clean
+make
+./main
