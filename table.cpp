@@ -13,7 +13,8 @@ void Table::wait() {
     // TODO: implement semaphore wait
     pthread_mutex_lock(&mutex);
 
-    if(value == 0) pthread_cond_wait(&cond, &mutex);
+    while(value == 0) pthread_cond_wait(&cond, &mutex);
+
     value--;
 
     assert(value >= 0);
@@ -25,15 +26,15 @@ void Table::signal() {
     // TODO: implement semaphore signal
 
     pthread_mutex_lock(&mutex);
+
     value++;
 
     pthread_cond_signal(&cond);
     pthread_mutex_unlock(&mutex);
-
-    
 }
 
 Table::~Table() {
     // TODO: implement table destructor (mutex, cond)
     pthread_mutex_destroy(&mutex);
+    pthread_cond_destroy(&cond);
 }

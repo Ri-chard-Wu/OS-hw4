@@ -17,7 +17,7 @@ void Fork::wait() {
 
     pthread_mutex_lock(&mutex);
 
-    if(value == 0) pthread_cond_wait(&cond, &mutex);
+    while(value == 0) pthread_cond_wait(&cond, &mutex);
     value--;
 
     assert(value >= 0);
@@ -37,4 +37,5 @@ Fork::~Fork() {
     // TODO: implement fork destructor (mutex, cond)
 
     pthread_mutex_destroy(&mutex);
+    pthread_cond_destroy(&cond);
 }

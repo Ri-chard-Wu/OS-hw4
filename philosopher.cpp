@@ -9,8 +9,7 @@ Philosopher::Philosopher(int id, Fork *leftFork, Fork *rightFork, Table *table) 
 void Philosopher::start() {
     // TODO: start a philosopher thread
 
-    int ret = pthread_create(&t, NULL, run, (void *)this);
-    if(ret != 0) printf("create thread failed.\n");
+    pthread_create(&t, NULL, run, (void *)this);
 }
 
 
@@ -21,20 +20,23 @@ int Philosopher::join() {
 
 int Philosopher::cancel() {
     // TODO: cancel a philosopher thread
+    pthread_cancel(t);
 }
 
 void Philosopher::think() {
     int thinkTime = rand() % (MAXTHINKTIME - MINTHINKTIME) + MINTHINKTIME;
+    printf("Philosopher %d begins thinking for %d seconds.\n", id, thinkTime);
     sleep(thinkTime);
-    // printf("Philosopher %d is thinking for %d seconds.\n", id, thinkTime);
 }
 
-void Philosopher::eat() {
-    // printf("Philosopher %d is eating.\n", id);
 
+void Philosopher::eat() {
+    
     enter();
 
     pickup();
+
+    printf("Philosopher %d is eating.\n", id);
 
     sleep(EATTIME);
 
@@ -43,12 +45,12 @@ void Philosopher::eat() {
     leave();
 }
 
+
 void Philosopher::pickup(int id) {
     // TODO: implement the pickup interface, the philosopher needs to pick up the left fork first, then the right fork
 
     leftFork->wait();
     rightFork->wait();
-
 }
 
 void Philosopher::putdown(int id) {
@@ -74,11 +76,11 @@ void* Philosopher::run(void* arg) {
 
     Philosopher *p = (Philosopher *)arg;
 
-    pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
 
-    while (!p->cancelled) {
+    while (1) {
 
-        p->think();
+        p->think(); 
 
         pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
 
@@ -86,7 +88,6 @@ void* Philosopher::run(void* arg) {
 
         pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     }
- 
 
     return NULL;
 }

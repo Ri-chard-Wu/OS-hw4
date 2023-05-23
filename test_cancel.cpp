@@ -10,6 +10,9 @@
 
 static void *thread_func(void *ignored_argument)
 {
+
+
+
     printf("[thread_func()] a\n");
 
     // PTHREAD_CANCEL_ASYNCHRONOUS, PTHREAD_CANCEL_DEFERRED
@@ -30,7 +33,7 @@ static void *thread_func(void *ignored_argument)
 
     printf("[thread_func()] e\n");
 
-    sleep(1000);       
+    sleep(1);       
 
     printf("[thread_func()] f\n");
 
@@ -40,13 +43,14 @@ static void *thread_func(void *ignored_argument)
 
 int main(void)
 {
+
     pthread_t thr;
     void *res;
 
     printf("[main()] a\n");
     
     pthread_create(&thr, NULL, &thread_func, NULL);
-    
+
     printf("[main()] b\n");
     
     sleep(1);     
@@ -56,7 +60,13 @@ int main(void)
     pthread_cancel(thr); // non-blocking
    
     printf("[main()] d\n");
-   
+    
+    // double a = 1.;
+    // for(int i = 0;i<1000000000;i++){
+    //     a *= 1.0000000001;
+    // }
+    // printf("a = %f\n", a);
+
     pthread_join(thr, &res); // blocking
 
     printf("[main()] e\n");
