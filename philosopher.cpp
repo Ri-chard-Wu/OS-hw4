@@ -5,7 +5,8 @@
 using namespace std;
 
 Philosopher::Philosopher(int id, Fork *leftFork, Fork *rightFork, Table *table) :id(id), cancelled(false), leftFork(leftFork), rightFork(rightFork), table(table) {
-    srand((unsigned) time(&t1));
+    
+    // srand((unsigned) time(&t1));
 
 }
 
@@ -67,6 +68,8 @@ void Philosopher::think() {
     col_print(s, id, COL_WIDTH, PHILOSOPHERS);
 
     sleep(thinkTime);
+
+    col_print((string)"think end", id, COL_WIDTH, PHILOSOPHERS);
 }
 
 
@@ -76,14 +79,11 @@ void Philosopher::eat() {
 
     pickup();
 
-    // char s[COL_WIDTH];
-    // sprintf(s, "eat\n"); 
-    // col_print(s, id, COL_WIDTH, PHILOSOPHERS);
-
-    
-    col_print((string)"eat", id, COL_WIDTH, PHILOSOPHERS);
+    col_print((string)"eat begin", id, COL_WIDTH, PHILOSOPHERS);
 
     sleep(EATTIME);
+
+    col_print((string)"eat end", id, COL_WIDTH, PHILOSOPHERS);
 
     putdown();
 

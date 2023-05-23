@@ -4,13 +4,9 @@
 
 Table::Table(int n) {
     // TODO: implement table constructor (value, mutex, cond)
-    
-    // mutex = PTHREAD_MUTEX_INITIALIZER;
-    // cond = PTHREAD_COND_INITIALIZER; 
-
     pthread_mutex_init(&mutex, NULL);
     pthread_cond_init(&cond, NULL);
-    value = n - 1;    
+    value = n - 1; // "-1" to avoid deadlock.
 }
 
 void Table::wait() {
