@@ -63,7 +63,7 @@ void Fork::signal() {
     // TODO: implement semaphore signal
     pthread_mutex_lock(&mutex);
     value++;
-    pthread_cond_signal(&cond);
+    pthread_cond_broadcast(&cond);
     pthread_mutex_unlock(&mutex);
 }
 
